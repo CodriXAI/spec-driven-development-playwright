@@ -17,7 +17,6 @@ Validar el acceso exitoso y el rechazo de credenciales inválidas, vacías o en 
 - La página mostró `Your username is invalid!` antes de enviar el formulario durante la exploración. En casos negativos, comprobar que el intento no navega al destino exitoso y que el formulario sigue disponible; no considerar suficiente que el texto de error ya esté visible.
 - Registrar cualquier diferencia respecto de los criterios esperados como incidencia. No probar bloqueo por intentos, recuperación de contraseña ni creación de usuarios: están fuera del alcance.
 
-## Escenarios
 
 ### LOGIN-01: Acceso exitoso con credenciales válidas
 
