@@ -3,3 +3,6 @@
 
 #results
 test-results/
+
+#modules
+node_modules/
