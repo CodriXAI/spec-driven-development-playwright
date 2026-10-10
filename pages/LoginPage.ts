@@ -1,8 +1,18 @@
+/// <reference types="node" />
+
 import { expect, type Locator, type Page } from '@playwright/test';
 
-const LOGIN_URL = 'https://practicetestautomation.com/practice-test-login/';
+function requireEnvironmentVariable(name: 'BASE_URL' | 'TEST_USERNAME'): string {
+  const value = process.env[name];
+  if (!value?.trim()) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
+const LOGIN_URL = requireEnvironmentVariable('BASE_URL');
 const SUCCESS_URL = /\/logged-in-successfully\//;
-const SUCCESS_MESSAGE = 'Congratulations student. You successfully logged in!';
+const SUCCESS_MESSAGE = `Congratulations ${requireEnvironmentVariable('TEST_USERNAME')}. You successfully logged in!`;
 
 export class LoginPage {
   readonly usernameInput: Locator;
@@ -25,9 +35,17 @@ export class LoginPage {
     await this.page.goto(LOGIN_URL);
   }
 
-  async fillCredentials(username: string, password: string): Promise<void> {
+  async fillUsername(username: string): Promise<void> {
     await this.usernameInput.fill(username);
+  }
+
+  async fillPassword(password: string): Promise<void> {
     await this.passwordInput.fill(password);
+  }
+
+  async fillCredentials(username: string, password: string): Promise<void> {
+    await this.fillUsername(username);
+    await this.fillPassword(password);
   }
 
   async submit(): Promise<void> {
